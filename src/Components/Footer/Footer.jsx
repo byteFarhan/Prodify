@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <>
-      <footer className="bg-white dark:bg-gray-900">
+      <footer className="bg-neutral-200 dark:bg-gray-900">
         <div className="container px-6 py-12 mx-auto">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
             <div className="sm:col-span-2">
@@ -78,12 +78,12 @@ const Footer = () => {
             </div>
           </div>
 
-          <hr className="my-6 border-gray-200 md:my-6 dark:border-gray-700" />
+          <hr className="my-6 border-black md:my-6 dark:border-gray-700" />
 
           <div className="flex items-center justify-between">
             <a
               href="#"
-              className="text-3xl font-bold text-black font-unbounded"
+              className="text-2xl lg:text-3xl font-bold text-black font-unbounded"
             >
               Prodify
             </a>
