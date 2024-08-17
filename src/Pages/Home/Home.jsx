@@ -37,6 +37,37 @@ const Home = () => {
   });
   console.log(data);
 
+  // Perform filtering and sorting
+  const filteredProducts = useMemo(() => {
+    if (!data?.products) return [];
+    return data.products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        (brand ? product.brand === brand : true) &&
+        (category ? product.category === category : true) &&
+        (minPrice ? product.price >= parseFloat(minPrice) : true) &&
+        (maxPrice ? product.price <= parseFloat(maxPrice) : true)
+    );
+  }, [data?.products, searchQuery, brand, category, minPrice, maxPrice]);
+
+  const sortedProducts = useMemo(() => {
+    if (!filteredProducts) return [];
+    switch (sortBy) {
+      case "priceAsc":
+        return [...filteredProducts].sort((a, b) => a.price - b.price);
+      case "priceDesc":
+        return [...filteredProducts].sort((a, b) => b.price - a.price);
+      case "createdAt":
+        return [...filteredProducts].sort(
+          (a, b) =>
+            new Date(convertUTCToSimpleFormat(b.createdAt)) -
+            new Date(convertUTCToSimpleFormat(a.createdAt))
+        );
+      default:
+        return filteredProducts; // Default: No sorting
+    }
+  }, [filteredProducts, sortBy]);
+
   //date fixing
   function convertUTCToSimpleFormat(utcTimestamp) {
     const utcDate = new Date(utcTimestamp);
