@@ -45,13 +45,13 @@ const SocialLogin = () => {
       >
         <FaGoogle /> Continue With
       </button>
-      <button
+      {/* <button
         onClick={handleGithubSignIn}
         className="flex items-center justify-center w-full gap-2 px-4 py-2.5 font-medium text-xl bg-neutral-300 text-black"
       >
         <FaGithub />
         Continue With
-      </button>
+      </button> */}
     </div>
   );
 };
