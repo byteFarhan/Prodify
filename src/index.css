@@ -3,3 +3,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-poppins;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-bold text-black font-unbounded;
+  }
+  p {
+    @apply font-poppins;
+  }
+}
+
+@layer components {
+  .nav-item {
+    @apply px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded cursor-pointer lg:mt-0 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700;
+  }
+  .section {
+    @apply px-5 mx-auto my-16 md:my-20 lg:my-28 max-w-7xl md:px-8 lg:px-0;
+  }
+  .active-route {
+    @apply bg-gray-200;
+  }
+}
