@@ -1,6 +1,12 @@
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import ProductsSec from "./ProductsSec/ProductsSec";
+import { Rating } from "@smastrom/react-rating";
+import { useQuery } from "@tanstack/react-query";
+import "@smastrom/react-rating/style.css";
+import "./Home.css";
+import ReactPaginate from "react-paginate";
+import { FaDollarSign } from "react-icons/fa";
 
 const Home = () => {
   const axiosPublic = useAxiosPublic();
@@ -13,6 +19,23 @@ const Home = () => {
   const [sortBy, setSortBy] = useState("default"); // Set default sorting
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 9;
+
+  const { data, isLoading } = useQuery({
+    queryKey: [
+      "products",
+      searchQuery,
+      brand,
+      category,
+      minPrice,
+      maxPrice,
+      sortBy,
+    ],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/products"); // Fetch all products
+      return res.data;
+    },
+  });
+  console.log(data);
   return (
     <section className="min-h-screen max-w-7xl mx-auto px-5 md:px-6 lg:px-0">
       <div className="">
