@@ -3,10 +3,25 @@ import NavRoute from "./NavRoute/NavRoute";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
+import useAuth from "../../hooks/useAuth";
+import swal from "sweetalert";
 
 const Navbar = ({ isScrolled }) => {
-  const user = false;
+  const { user, userSignOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const handleLogout = () => {
+    userSignOut()
+      .then(() => {
+        swal("Logout successfull.", {
+          button: false,
+        });
+      })
+      .catch((error) => {
+        swal(error.message, {
+          button: false,
+        });
+      });
+  };
   const NavRoutes = (
     <>
       {/* <NavRoute routeName={"Registation"} routePath={"/registation"} /> */}
@@ -60,6 +75,11 @@ const Navbar = ({ isScrolled }) => {
                   <NavRoute routeName={"Home"} routePath={"/"} />
                   {!user && NavRoutes}
                 </ul>
+                {user && (
+                  <button onClick={handleLogout} className="btn btn-warning">
+                    Logout
+                  </button>
+                )}
               </div>
             </div>
           </div>
