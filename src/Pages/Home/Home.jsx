@@ -7,6 +7,7 @@ import "@smastrom/react-rating/style.css";
 import "./Home.css";
 import ReactPaginate from "react-paginate";
 import { FaDollarSign } from "react-icons/fa";
+import Product from "./Product/Product";
 
 const Home = () => {
   const axiosPublic = useAxiosPublic();
@@ -109,12 +110,12 @@ const Home = () => {
             <input
               type="text"
               placeholder="Search by name"
-              // value={searchTerm}
-              // onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="input input-bordered w-full"
             />
             <button
-              // onClick={() => setSearchQuery(searchTerm)}
+              onClick={() => setSearchQuery(searchTerm)}
               className="btn btn-primary absolute right-[0%] bg-black border-none hover:bg-black text-white"
             >
               Search
@@ -123,8 +124,8 @@ const Home = () => {
           {/* Sorting */}
           <div className="w-full md:w-72">
             <select
-              // value={sortBy}
-              // onChange={(e) => setSortBy(e.target.value)}
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
               className="select select-bordered w-full"
             >
               <option value="default">Sort by</option>
@@ -144,8 +145,8 @@ const Home = () => {
           <h1 className="text-2xl text-center mb-5">Filter Products</h1>
           <div className="flex flex-col md:flex-row gap-4 justify-between">
             <select
-              //   value={category}
-              //   onChange={(e) => setCategory(e.target.value)}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               className="select select-bordered w-full md:w-52 lg:w-60"
             >
               <option value="">Select Category</option>
@@ -162,8 +163,8 @@ const Home = () => {
               <option>Wearables</option>
             </select>
             <select
-              //   value={brand}
-              //   onChange={(e) => setBrand(e.target.value)}
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
               className="select select-bordered w-full md:w-52 lg:w-60"
             >
               <option value="">Select Brand</option>
@@ -179,12 +180,12 @@ const Home = () => {
               <option>SoundWave</option>
             </select>
             <select
-              //   value={`${minPrice}-${maxPrice}`}
-              //   onChange={(e) => {
-              //     const [min, max] = e.target.value.split("-");
-              //     setMinPrice(min);
-              //     setMaxPrice(max);
-              //   }}
+              value={`${minPrice}-${maxPrice}`}
+              onChange={(e) => {
+                const [min, max] = e.target.value.split("-");
+                setMinPrice(min);
+                setMaxPrice(max);
+              }}
               className="select select-bordered w-full md:w-52 lg:w-60"
             >
               <option value="">Select Price Range</option>
@@ -204,7 +205,41 @@ const Home = () => {
       <br />
       <hr />
       <br />
-      <ProductsSec></ProductsSec>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {paginatedProducts.length === 0 ? (
+          <div className="text-xl">No products found...</div>
+        ) : (
+          paginatedProducts.map((product) => (
+            <Product
+              key={product._id}
+              product={product}
+              convertUTCToSimpleFormat={convertUTCToSimpleFormat}
+            />
+          ))
+        )}
+      </div>
+      <div className="pagination-controls flex justify-center mt-14 scale-75 md:scale-100">
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={(selectedItem) => setCurrentPage(selectedItem.selected)}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      </div>
+      {/* <ProductsSec></ProductsSec> */}
     </section>
   );
 };
