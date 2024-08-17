@@ -76,7 +76,7 @@ const Register = () => {
   return (
     <section>
       <Helmet>
-        <title>ROAM | Register</title>
+        <title>Prodify | Register</title>
       </Helmet>
       <section className="py-6 lg:bg-[#F3F3F3] px-5 md:px-0">
         <div className="mx-auto max-w-7xl"></div>
@@ -113,13 +113,13 @@ const Register = () => {
                   placeholder="Photo URL"
                   name="photoURL"
                   className="rounded input-bordered input lg:bg-[#F3F3F3]"
-                  {...register("photoURL", { required: true })}
+                  //   {...register("photoURL")}
                 />
-                {errors.photoURL && (
+                {/* {errors.photoURL && (
                   <span className="mt-2 text-red-600">
                     This field is required
                   </span>
-                )}
+                )} */}
               </div>
               <div className=" form-control">
                 <label className="label">
@@ -201,7 +201,10 @@ const Register = () => {
               <SocialLogin />
               <p className="my-3 text-center">
                 Already have an account?{" "}
-                <Link to={"/login"} className="text-black hover:underline">
+                <Link
+                  to={"/login"}
+                  className="text-black font-medium hover:underline"
+                >
                   Login
                 </Link>
               </p>
