@@ -1,6 +1,18 @@
+import { useState } from "react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import ProductsSec from "./ProductsSec/ProductsSec";
 
 const Home = () => {
+  const axiosPublic = useAxiosPublic();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // Stores the actual query used to filter results
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [sortBy, setSortBy] = useState("default"); // Set default sorting
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 9;
   return (
     <section className="min-h-screen max-w-7xl mx-auto px-5 md:px-6 lg:px-0">
       <div className="">
