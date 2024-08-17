@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import ProductsSec from "./ProductsSec/ProductsSec";
 import { Rating } from "@smastrom/react-rating";
@@ -36,6 +36,23 @@ const Home = () => {
     },
   });
   console.log(data);
+
+  //date fixing
+  function convertUTCToSimpleFormat(utcTimestamp) {
+    const utcDate = new Date(utcTimestamp);
+
+    // Convert to a simpler format (e.g., YYYY-MM-DD HH:MM:SS)
+    const year = utcDate.getFullYear();
+    const month = String(utcDate.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const day = String(utcDate.getDate()).padStart(2, "0");
+    const hours = String(utcDate.getHours()).padStart(2, "0");
+    const minutes = String(utcDate.getMinutes()).padStart(2, "0");
+    const seconds = String(utcDate.getSeconds()).padStart(2, "0");
+
+    // Format as YYYY-MM-DD HH:MM:SS
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   return (
     <section className="min-h-screen max-w-7xl mx-auto px-5 md:px-6 lg:px-0">
       <div className="">
