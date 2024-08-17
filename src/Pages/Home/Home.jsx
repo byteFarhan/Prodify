@@ -84,6 +84,13 @@ const Home = () => {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
+  // Calculate pagination details
+  const pageCount = Math.ceil(sortedProducts.length / itemsPerPage);
+  const paginatedProducts = sortedProducts.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+
   if (isLoading)
     return (
       <div className="flex justify-center min-h-[60vh]">
