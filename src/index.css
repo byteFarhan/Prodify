@@ -30,4 +30,7 @@
   .active-route {
     @apply bg-gray-200;
   }
+  .btn-base {
+    @apply px-4 py-3 font-bold capitalize border-none md:px-6 lg:py-4;
+  }
 }
