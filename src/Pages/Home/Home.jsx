@@ -84,6 +84,13 @@ const Home = () => {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
+  if (isLoading)
+    return (
+      <div className="flex justify-center min-h-[60vh]">
+        <span className="loading loading-dots loading-lg"></span>
+      </div>
+    );
+
   return (
     <section className="min-h-screen max-w-7xl mx-auto px-5 md:px-6 lg:px-0">
       <div className="">
