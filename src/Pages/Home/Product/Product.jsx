@@ -1,4 +1,5 @@
 import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 import { FaDollarSign } from "react-icons/fa";
 
 const Product = ({ product, convertUTCToSimpleFormat }) => {

@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import ProductsSec from "./ProductsSec/ProductsSec";
+// import ProductsSec from "./ProductsSec/ProductsSec";
 import { Rating } from "@smastrom/react-rating";
 import { useQuery } from "@tanstack/react-query";
 import "@smastrom/react-rating/style.css";
@@ -38,10 +38,26 @@ const Home = () => {
   });
   console.log(data);
 
+  //   const [data, setData] = useState([]);
+  //   //   const [isLoading, setIsLoading] = useState(true);
+  //   const isLoading = false;
+
+  //   useEffect(() => {
+  //     fetch(`${import.meta.env.VITE_BASE_URL}/products`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setData(data);
+  //         // setIsLoading(false);
+  //       });
+  //   }, []);
+  //   console.log(data);
+
   // Perform filtering and sorting
   const filteredProducts = useMemo(() => {
-    if (!data?.products) return [];
-    return data.products.filter(
+    if (!data) return [];
+    // if (!data?.products) return [];
+    // return data.products.filter(
+    return data?.filter(
       (product) =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
         (brand ? product.brand === brand : true) &&
@@ -49,7 +65,8 @@ const Home = () => {
         (minPrice ? product.price >= parseFloat(minPrice) : true) &&
         (maxPrice ? product.price <= parseFloat(maxPrice) : true)
     );
-  }, [data?.products, searchQuery, brand, category, minPrice, maxPrice]);
+    // }, [data?.products, searchQuery, brand, category, minPrice, maxPrice]);
+  }, [data, searchQuery, brand, category, minPrice, maxPrice]);
 
   const sortedProducts = useMemo(() => {
     if (!filteredProducts) return [];
@@ -100,11 +117,11 @@ const Home = () => {
     );
 
   return (
-    <section className="min-h-screen max-w-7xl mx-auto px-5 md:px-6 lg:px-0">
+    <section className="min-h-screen px-5 mx-auto max-w-7xl md:px-6 lg:px-0">
       <div className="">
         <hr />
         <br />
-        <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           {/* Search */}
           <div className="relative w-full md:w-72 lg:w-96">
             <input
@@ -112,7 +129,7 @@ const Home = () => {
               placeholder="Search by name"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="input input-bordered w-full"
+              className="w-full input input-bordered"
             />
             <button
               onClick={() => setSearchQuery(searchTerm)}
@@ -126,7 +143,7 @@ const Home = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="select select-bordered w-full"
+              className="w-full select select-bordered"
             >
               <option value="default">Sort by</option>
               <option value="createdAt">Newly Added</option>
@@ -142,12 +159,12 @@ const Home = () => {
       {/* Filtering */}
       <div className="flex justify-between">
         <div className="w-full">
-          <h1 className="text-2xl text-center mb-5">Filter Products</h1>
-          <div className="flex flex-col md:flex-row gap-4 justify-between">
+          <h1 className="mb-5 text-2xl text-center">Filter Products</h1>
+          <div className="flex flex-col justify-between gap-4 md:flex-row">
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="select select-bordered w-full md:w-52 lg:w-60"
+              className="w-full select select-bordered md:w-52 lg:w-60"
             >
               <option value="">Select Category</option>
               <option>Accessories</option>
@@ -165,7 +182,7 @@ const Home = () => {
             <select
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
-              className="select select-bordered w-full md:w-52 lg:w-60"
+              className="w-full select select-bordered md:w-52 lg:w-60"
             >
               <option value="">Select Brand</option>
               <option>AxcoTube</option>
@@ -186,7 +203,7 @@ const Home = () => {
                 setMinPrice(min);
                 setMaxPrice(max);
               }}
-              className="select select-bordered w-full md:w-52 lg:w-60"
+              className="w-full select select-bordered md:w-52 lg:w-60"
             >
               <option value="">Select Price Range</option>
               <option value="10-49.99">10 - 49.99 $</option>
@@ -205,7 +222,7 @@ const Home = () => {
       <br />
       <hr />
       <br />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         {paginatedProducts.length === 0 ? (
           <div className="text-xl">No products found...</div>
         ) : (
@@ -218,7 +235,7 @@ const Home = () => {
           ))
         )}
       </div>
-      <div className="pagination-controls flex justify-center mt-14 scale-75 md:scale-100">
+      <div className="flex justify-center mb-8 scale-75 pagination-controls md:mb-10 mt-14 md:scale-100">
         <ReactPaginate
           previousLabel={"Previous"}
           nextLabel={"Next"}

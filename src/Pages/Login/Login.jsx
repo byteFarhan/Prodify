@@ -95,7 +95,7 @@ const Login = () => {
               </div>
 
               <div className="mt-2 form-control">
-                <button className="text-white transition-all ease-in-out delay-100 btn-base bg-black">
+                <button className="text-white transition-all ease-in-out delay-100 bg-black btn-base">
                   Login
                 </button>
               </div>
@@ -103,7 +103,7 @@ const Login = () => {
                 {`Don't have any account? `}
                 <Link
                   to={"/register"}
-                  className="text-black font-medium hover:underline"
+                  className="font-medium text-black hover:underline"
                 >
                   Register
                 </Link>
